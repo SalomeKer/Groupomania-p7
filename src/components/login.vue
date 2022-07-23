@@ -19,7 +19,7 @@ name : "login"
 							</div>
 							<div class="form-floating mb-5">
 								<input style="border-radius: 25rem;" class="form-control" id="floatingPassword" placeholder="Password" type="password"> <label for="floatingPassword" class="text-muted ms-3">Mot de passe</label>
-							</div><button style="border-radius: 25rem;" class=" mx-auto d-flex btn btn-danger btn-lg ps-5 pe-5 btn-block" type="submit">s'inscrire</button>
+							</div><button style="border-radius: 25rem;" class=" mx-auto d-flex btn btn-danger mb-3 btn-lg ps-5 pe-5 btn-block" type="submit">s'inscrire</button>
 						</div>
 					</div>
 				</div>
@@ -29,7 +29,6 @@ name : "login"
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
 section{
  font-family: Lato;
 }
