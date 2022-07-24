@@ -8,7 +8,7 @@ name : "loginPage"
 <template>
     <section class="bg-image d-flex justify-content-center" style="background-image: url('network.jpg');height: 100vh;">
 		<div class="container h-100">
-			<div class="row d-flex justify-content-center groupoCard h-100">
+			<div class="row d-flex justify-content-center pt-5 mt-5 groupoCard h-100">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 					<div class="card shadow-lg border border-white" style="border-radius: 1rem;">
 						<div class="card-body p-5 ">
@@ -31,8 +31,5 @@ name : "loginPage"
 <style>
 section{
  font-family: Lato;
-}
-.groupoCard{
-	margin-top: 160px;
 }
 </style>
