@@ -1,8 +1,8 @@
 <script>
-import Card from "./Card.vue"
+import Card from "../../components/Card/Card.vue"
 import Post from "./Post.vue"
 export default {
-    name: "Wall",
+    name: "WallPage",
 	components:{
 		Card,
 		Post

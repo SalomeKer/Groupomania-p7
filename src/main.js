@@ -6,14 +6,14 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css"
 
 import App from './App.vue'
-import Wall from './components/Wall.vue'
-import login from "./components/login.vue"
+import WallPage from './pages/Wall/WallPage.vue'
+import loginPage from "./pages/loginPage.vue"
 
 
 const routes = [
     //{ path: "/", component: App},
-    { path: "/login", component: login},
-    {path: "/Home", component: Wall}
+    { path: "/login", component: loginPage},
+    {path: "/Home", component: WallPage}
 ]
 //Creation du router
 const router = createRouter({ history: createWebHistory(), routes })

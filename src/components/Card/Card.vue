@@ -19,11 +19,14 @@ export default{
                 <h5 class="card-title">Groupomania</h5>
                 <p class="card-text">La direction a promis des mesures d’amélioration de la communication entre collègues, notamment la mise en place d’un nouvel outil numérique.Il s’agit de la création d’un réseau social interne moderne, qui permettra aux employés de se connaître dans un cadre plus informel.</p>
                 <hr class="dropdown-diviser pb-2" />
-                
                 <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
+
+                <div class="d-flex mt-3">
+                 <Avatar></Avatar>
+                 <input type="text" class="form-control" placeholder="Commenter" aria-label="Commentaire"/>
+                 <button style="border-radius: 25rem;" class="ms-2 ps-3 pe-3 btn btn-danger btn-block" type="submit">Envoyer</button>
             </div>
+        </div>
 	</div>
 </div>
 </template>

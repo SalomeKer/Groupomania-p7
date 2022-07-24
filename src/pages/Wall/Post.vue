@@ -6,7 +6,7 @@ export default{
 
 <template>
 <div class="card w-100 shadow-lg border border-white" style="border-radius: 1rem;">
-				<div class="card-body p-5 ">
+				<div class="card-body p-4 ">
 							<h3 class="mb-4">Mon commentaire</h3>
                             <div class="form-floating">
                                 <textarea class="form-control mb-4 " placeholder="Mon message" id="floatingTextarea"></textarea>

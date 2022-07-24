@@ -1,11 +1,11 @@
 <script>
-import loginVue from "./components/login.vue"
-import Navbar from "./components/Navbar.vue"
+import loginPage from "./pages/loginPage.vue"
+import Navbar from "./components/layout/Navbar.vue"
 
 export default {
 name: "App",
 components: {
-   loginVue,
+   loginPage,
    Navbar
  }
 }

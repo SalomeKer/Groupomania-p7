@@ -16,10 +16,10 @@ export default {
   
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item ps-2">
         <router-link class="text-decoration-none" to="/login"><a class="nav-link">Connexion</a></router-link>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ps-2">
         <router-link class="text-decoration-none" to="/inscription"><a class="nav-link">Inscription</a></router-link>
       </li>
     </ul>
