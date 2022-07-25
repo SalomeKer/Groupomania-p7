@@ -13,9 +13,9 @@ export default {
 
 <div class="d-flex pb-3">
     <Avatar />
-    <div style="border-radius: 1rem;" class="blocComment w-75 d-flex flex-column p-2">
-        <p class=" NomPrenom mb-0">Anne DRH</p>
-        <p class="mb-0 pb-1">Super !</p>
+    <div style="border-radius: 1.5rem;" class="blocComment w-75 d-flex flex-column p-2">
+        <p class=" NomPrenom ps-2 mb-0">Anne DRH</p>
+        <p class="mb-0 ps-2 pb-1">Super !</p>
     </div>
 </div>
 
