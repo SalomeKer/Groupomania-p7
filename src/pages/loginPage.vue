@@ -1,45 +1,60 @@
 <script>
-function checkCredentials( email, password ) {
-console.log({ email, password })
-
-if (email !== "salome.k@gmail.com") throw new Error ("Invalid email")
-if (password !== "abc123") throw new Error ("Invalid password")
-
-const token = "my JWT token"
-localStorage.setItem("token", token)
-this.$router.push("/home")
+function submitForm( email, password ) {
+const url = "http://localhost:3000/auth/login"
+const options = {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({email, password})
 }
-
+fetch(url, options)
+	.then(res => {
+		if (res.ok) return res.json() 
+		res.text().then((err) => {
+		const { error } = JSON.parse(err)
+		this.error = error
+		throw new Error(error)
+		 })
+		})
+	.then((res) => {
+		console.log("res:", res)
+		const token = res.token
+		localStorage.setItem("token", token)
+		this.$router.push("/home")
+		})
+	.catch((err) => {
+		console.log(err)
+	})
+}
 export default {
 name : "loginPage",
 data,
 methods:{
-	checkCredentials,
+	submitForm,
 	isFormValid
  },
-
 //À chaque modification, watch va vérifier si la valeur est vide, si elle l'est la valeur est mauvaise, dans le cas contraire elle est bonne.
 watch:{
 	username(value){
 	const isValueEmpty = value === ""
-	console.log("isValueEmpty:", isValueEmpty)
 	this.isFormValid(!isValueEmpty)
+	this.error = null
 	},
 	password(value){
 	const isValueEmpty = value === ""
-	console.log("isValueEmpty:", isValueEmpty)
 	this.isFormValid(!isValueEmpty)
+	this.error = null
 	}
   }
 }
-
 function isFormValid(bool){
   console.log("isFormValid:", bool)
   this.HasInvalidData = !bool
 }
-
 function data() {
-	return { username: "salome.k@gmail.com", password: "abc123", HasInvalidData: false}
+	return { username: "salome.k@gmail.com", password: "123456", HasInvalidData: false,
+	error: null}
 }
 </script>
 
@@ -62,8 +77,9 @@ function data() {
 								type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password" required="true"  @invalid="isFormValid" /> 
 								<label for="floatingPassword" class="text-muted ms-3">Mot de passe*</label>
 								<span v-if="HasInvalidData" class="messageError">Veuillez remplir tous les champs obligatoires</span>
+								<span v-if="!HasInvalidData && error" class="messageError">{{ error }}</span>
 							</div><button style="border-radius: 25rem;" class=" mx-auto d-flex btn btn-danger mb-3 btn-lg ps-5 pe-5 btn-block" type="submit" @click.prevent="()=> 
-							checkCredentials(this.username, this.password)" :disabled="HasInvalidData">
+							submitForm(this.username, this.password)" :disabled="HasInvalidData">
 							Connexion
 							</button>
 							<p class="mt-5 mb-3 text-muted">Value: {{ username }}</p>
@@ -87,7 +103,6 @@ function data() {
 	justify-content: center;
 	color: red;
 }
-
 section{
  font-family: Lato;
 }
