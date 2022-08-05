@@ -1,28 +1,28 @@
 <script>
+import { getUrlAndHeaders } from "./../../../services/fetchOptions"
 export default{
     name: "Post",
-	data: function () {
+	data() {
 		return {
 			content: "",
-		};
+			selectedImage: null
+		}
 	},
 	methods: {
+		HandleNewFile(e){
+         this.selectedImage = e.target.files[0]
+		},
 		handleClick(){
-		const url = "http://localhost:3000/posts"
-
+		const { url, headers } = getUrlAndHeaders()
+		const formData = new FormData()
+		formData.append("content", this.content)
+        formData.append("image", this.selectedImage)
 		const options = {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem("token")}`,
-				"Content-Type": "application/json",
-  				"Accept": "application/json"
-			},
+			headers,
 			method: "POST",
-			body: JSON.stringify({
-				content: this.content
-			})
+			body: formData
 		}
-		
-		fetch(url, options)
+		fetch(url + "posts", options)
 			.then((res) => {
 				if (res.status === 200){
 					return res.json
@@ -30,8 +30,8 @@ export default{
 					throw new Error("failed to fetch posts")
 				}
 			})
-		    .then(() => {
-				this.$router.go()
+		    .then((res) => {
+			this.$router.go()
 			})
 			.catch((err) => console.log("err:", err))
 		}
@@ -48,10 +48,14 @@ export default{
                  <label class="text-muted" for="floatingTextarea2">Écrivez quelque chose !</label>
                     </div>
 			<div class="icon d-flex">
-				<label class="btn-secondary ms-auto btn btn-lg btn-block" for="file-input" style="border-radius: 25rem;"><i class="fs-4 fa-regular fa-image"></i></label> <input id="file-input" type="file">
+				<label class="btn-secondary ms-auto btn btn-lg btn-block" for="file-input" style="border-radius: 25rem;">
+				<i class="fs-4 fa-regular fa-image"></i></label>
+				<input id="file-input" type="file" @change="HandleNewFile">
 				<button @click="handleClick" class="ms-2 btn btn-danger btn-lg btn-block" style="border-radius: 25rem;" type="submit">Envoyer</button>
+				
+
 			</div>
-			{{ content }}
+			<span v-if="selectedImage">{{selectedImage.name}}</span>
 		</div>
 	</div>
 </template>

@@ -1,59 +1,72 @@
 <script>
 import Card from "../../components/Card/Card.vue"
 import Post from "./Post.vue"
+import { getUrlAndHeaders } from "./../../../services/fetchOptions"
+
 export default {
     name: "WallPage",
 	components:{
 		Card,
 		Post
 	},
-	beforeCreated(){
-		const token = JSON.parse(localStorage.getItem('data'))
-		if (token == null){
-			this.$router.push("/login")
-		}
-	},
-	mounted(){
-     const url = "http://localhost:3000/posts"
-	 const options = {
-		headers: {
-		  Authorization: `Bearer ${localStorage.getItem("token")}`,
-  		 "Accept": "application/json"
-		}
-	 }
-	 fetch(url, options)
-	 	.then((res) => {
-			if (res.status === 200){
-				return res.json()
-			}else {
-				this.$router.push("/login")
-			}
-		})
-		.then((res) => {
-			const {email, posts} = res
-			this.posts = posts
-			this.email = email
-		})
-		.catch((err) => console.log("err:", err))
+	methods: {
+    redirectToLoginIfNoToken() {
+      const token = localStorage.getItem("token")
+      console.log("token:", token)
+      if (token == null) {
+        this.$router.push("/login")
+      }
+    }
   },
-  data(){
+	mounted() {
+    this.redirectToLoginIfNoToken()
+    const { url, headers } = getUrlAndHeaders()
+    const options = {
+      headers: { ...headers }
+    }
+    console.log("options:", { ...options })
+    fetch(url + "posts/", options)
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw new Error("Failed to fetch posts")
+        }
+      })
+      .then((res) => {
+        console.log("res:", res)
+        const { email, posts } = res
+        this.posts = posts
+        this.currentUser = email
+      })
+      .catch((err) => console.log("err:", err))
+  },
+  data() {
     return {
-		posts: [],
-		email: null
-	}
+      posts: [],
+      currentUser: null
+    }
   }
 }
 
 </script>
 
 <template>
-	<section class="bg-image d-flex justify-content-center" style="background-color: #F3E9E8;">
-		<div v-if="email" class="container-fluid">
+	<p class="text-center welcomText m-0">Bienvenue {{ currentUser }} !</p>
+	<section v-if="currentUser" class="bg-image d-flex justify-content-center" style="background-color: #F3E9E8;">
+		<div class="container-fluid">
 			<div class="row d-flex justify-content-center align-items-center mt-5">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 					<Post></Post>
 					<div v-for="post in posts" :key="post.id">
-					<card :email="post.user" :content="post.content" :url="post.url" :comments="post.comments"></card>
+					<card 
+					 :currentUser="currentUser"
+       				 :email="post.user.email"
+        			 :content="post.content"
+        			 :url="post.imageUrl"
+        			 :comments="post.comments"
+                     :id="post.id">
+					</card>
 					</div>
 				</div>
 			</div>
@@ -70,5 +83,11 @@ input{
 }
 .btn {
     border: none;
+}
+.welcomText{
+	background-color: #bb2d3b;
+	padding: 6px;
+	font-weight: bold;
+	color: white;
 }
 </style>

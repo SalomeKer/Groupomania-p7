@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark bg-dark">
 
 <a class="ps-4 navbar-brand"><router-link to="/home"><img src="icon-left-font-monochrome-white.png" alt="Logo" style="width:140px;"></router-link></a>
 
