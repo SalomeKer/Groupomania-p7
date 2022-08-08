@@ -24,7 +24,7 @@ export default {
 <template>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark bg-dark">
 
-<a class="ps-4 navbar-brand"><router-link to="/home"><img src="icon-left-font-monochrome-white.png" alt="Logo" style="width:140px;"></router-link></a>
+<a class="ps-4 navbar-brand"><router-link to="/home"><img src="../../../public/icon-left-font-monochrome-white.png" alt="Logo" style="width:140px;"></router-link></a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>

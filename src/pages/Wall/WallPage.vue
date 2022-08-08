@@ -65,7 +65,7 @@ export default {
         			 :content="post.content"
         			 :url="post.imageUrl"
         			 :comments="post.comments"
-                     :id="post.id">
+               :id="post.id">
 					</card>
 					</div>
 				</div>

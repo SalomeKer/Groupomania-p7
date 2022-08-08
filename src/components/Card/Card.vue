@@ -1,12 +1,15 @@
 <script>
 import Comment from "./Comment.vue"
 import Avatar from "./Avatar.vue"
+import modify from "../../pages/Wall/modifyPost.vue"
+
+
 import { getUrlAndHeaders } from "./../../../services/fetchOptions"
 export default{
-    name: "Card",
+    name: "Card", 
     components:{
         Comment,
-        Avatar
+        Avatar,
     },
     props: ["email", "content", "url", "comments", "id"],
     data(){
@@ -61,7 +64,7 @@ export default{
           this.$router.go()
         })
         .catch((err) => console.log("err:", err))
-    }
+    },
     }
 }
 </script>
@@ -69,11 +72,18 @@ export default{
 <template>
 <div class="card box-sizing w-100 m-auto shadow-lg border border-white mt-5 mb-5" style="border-radius: 1rem;">
     <div class="card-header border-bottom-0 bg-white" style="border-top-left-radius: 1rem;border-top-right-radius: 1rem;">
-      <div class="m-auto pt-1 d-flex"><img src="user.png" 
+      <div class="m-auto pt-1 d-flex"><img src="/user.png" 
          class="rounded-circle me-3" 
          style="width: 50px; height: 50px;" 
          alt="Avatar" />
-         <span class="emailAvatar">{{ email }}</span><div class="iconDiv ms-auto"><i class="fa-regular fa-heart"></i><i class="fa-solid fa-pen"></i><i class="fa-solid fa-xmark" @click="deletePost"></i></div></div>
+         <span class="emailAvatar">{{ email }}</span><div class="iconDiv d-flex align-items-center ms-auto">
+          <div class="like"><p><i @click="likeClick($event, messageInfos.id)" class="fas fa-heart"></i> <span class="number"></span></p></div>
+         <router-link
+          id="fa-pen"
+          :to="{
+          name: 'modify',
+          params: { id: id, email: email, url: url },}"><i class=" fa-solid fa-pen"></i></router-link>
+          <i class="fa-solid fa-x" @click="deletePost"></i></div></div>
          
     </div>
     
@@ -100,13 +110,22 @@ export default{
     color: black;
 }
 .iconDiv i{
-    font-size: 20px;
-    padding-top: 15px;
-    padding-right: 15px;
+  font-size: 20px;
+  padding: 7px;
 }
+.like p{
+  margin: 0%;
+}
+
 .emailAvatar{
     padding-top: 12px;
 }
+
+i {
+  cursor: pointer;
+}
+
+
 
 
 </style>

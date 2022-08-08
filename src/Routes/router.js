@@ -1,6 +1,8 @@
 import WallPage from '../pages/Wall/WallPage.vue'
 import loginPage from "../pages/loginPage.vue"
+import modifyPost from "../pages/Wall/modifyPost.vue"
 import { createRouter, createWebHistory} from "vue-router"
+
 
 
 const routes = [
@@ -8,6 +10,7 @@ const routes = [
     { path: "/login", component: loginPage},
     { path: "/signup", component: loginPage},
     {path: "/home", component: WallPage},
+    { name: "modify", path: "/home/modify", component: modifyPost, props: true },
     {path: "/", redirect: "/home"}
 ]
 //Creation du router

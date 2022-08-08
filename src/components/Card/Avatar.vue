@@ -6,7 +6,12 @@ export default {
 
 
 <template>
-<img src="user.png" class="rounded-circle me-3" style="width: 40px; height: 40px;" alt="Avatar" />
+<img src="/user.png" class="rounded-circle me-3" style="width: 40px; height: 40px;" alt="Avatar" />
 </template>
 
-<style></style>
+<style>
+img{
+    margin: 0;
+}
+
+</style>
