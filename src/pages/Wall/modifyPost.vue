@@ -44,7 +44,8 @@ export default {
 </script>
 
 <template>
-<headerHome />
+<section style="background-color: #F3E9E8">
+<div class="container-fluid h-75 w-75 p-4">
     <div class="card w-100 shadow-lg border border-white" style="border-radius: 1rem;">
 		<div class="card-body p-4">
       <div class="d-flex"><router-link to="/home"><i class="btn-lg fa-solid fa-angle-left"></i></router-link>
@@ -58,8 +59,10 @@ export default {
 				<i class="fs-4 fa-regular fa-image"></i></label>
 				<input id="file-input" type="file" @change="selectionOfFiles">
 				<button @click="modifyPost" class="ms-2 btn btn-danger btn-lg btn-block" style="border-radius: 25rem;" type="submit">Envoyer</button>
-               </div></div>
+        </div></div>
 	</div>
+  </div>
+  </section>
 </template>
 
 <style>

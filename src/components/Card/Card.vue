@@ -11,7 +11,7 @@ export default{
         Comment,
         Avatar,
     },
-    props: ["email", "content", "url", "comments", "id"],
+    props: ["email", "content", "url", "comments", "id", "currentUser"],
     data(){
         return{
             currentcomment: null
@@ -77,13 +77,13 @@ export default{
          style="width: 50px; height: 50px;" 
          alt="Avatar" />
          <span class="emailAvatar">{{ email }}</span><div class="iconDiv d-flex align-items-center ms-auto">
-          <div class="like"><p><i @click="likeClick($event, messageInfos.id)" class="fas fa-heart"></i> <span class="number"></span></p></div>
+          <div class="like"><p><i @click="likeClick" class="fas fa-heart"></i> <span class="number"></span></p></div>
          <router-link
           id="fa-pen"
           :to="{
           name: 'modify',
-          params: { id: id, email: email, url: url },}"><i class=" fa-solid fa-pen"></i></router-link>
-          <i class="fa-solid fa-x" @click="deletePost"></i></div></div>
+          params: { id: id, email: email, url: url },}"><i v-if="currentUser === email" class="fa-solid fa-pen"></i></router-link>
+          <i v-if="currentUser === email" class="fa-solid fa-x" @click="deletePost"></i></div></div>
          
     </div>
     

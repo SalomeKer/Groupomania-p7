@@ -81,6 +81,7 @@ function loginUser(email, password, router, store) {
     })
     .then((res) => {
       const token = res.token
+      localStorage.clear()
       localStorage.setItem("token", token)
       let tokenInCache
       while (tokenInCache == null) {
