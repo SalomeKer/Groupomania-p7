@@ -5,9 +5,8 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      username: "salome.k@gmail.com",
-      password: "123456",
-      confirmPassword: "123456",
+      username: "",
+      password: "",
       HasInvalidData: false,
       error: null,
       isLoginMode: true
@@ -19,12 +18,11 @@ export default {
     toggleLoginMode() {
       this.isLoginMode = !this.isLoginMode
     },
-    signUp: async function (email, password, confirmPassword, router) {
+    signUp: async function (email, password, router) {
       const { url } = getUrlAndHeaders()
       const body = JSON.stringify({
         email,
         password,
-        confirmPassword
       })
       const options = {
         method: "POST",
@@ -123,15 +121,6 @@ function loginUser(email, password, router, store) {
 								<label for="floatingPassword" class="text-muted ms-3">Mot de passe*</label>
 								</div> 
 								<div v-if="!isLoginMode" class="form-floating mb-5">
-								<input style="border-radius: 25rem;" 
-								type="password" 
-								class="form-control" 
-								placeholder="Confirm password" 
-								v-model="Confirmpassword" 
-								required="true"  
-								@invalid="isFormValid" 
-								/>
-								<label for="floatingPassword" class="text-muted ms-3">Confirmer le mot de passe*</label>
 								</div> 
 								<span v-if="HasInvalidData" class="messageError">Veuillez remplir tous les champs obligatoires</span>
 								<span v-if="!HasInvalidData && error" class="messageError">{{ error }}</span>
@@ -139,7 +128,7 @@ function loginUser(email, password, router, store) {
 							loginUser(this.username, this.password)" :disabled="HasInvalidData">
 							Connexion
 							</button>
-							<button v-else style="border-radius: 25rem;" class=" mx-auto d-flex btn btn-danger mb-3 btn-lg ps-5 pe-5 btn-block" type="submit" @click.prevent=" ()=>signUp(this.username, this.password, this.confirmPassword, this.$router)" :disabled="HasInvalidData">
+							<button v-else style="border-radius: 25rem;" class=" mx-auto d-flex btn btn-danger mb-3 btn-lg ps-5 pe-5 btn-block" type="submit" @click.prevent=" ()=>signUp(this.username, this.password, this.$router)" :disabled="HasInvalidData">
 							Inscription
 							</button>
 							<p class="d-flex justify-content-center mt-5 mb-1 subLink" @click.prevent="toggleLoginMode"><a class="ps-1" href="#">{{this.isLoginMode ? "Inscrivez-vous !" : "Se connecter"}}</a></p>
