@@ -11,6 +11,11 @@ export default {
 	},
 	methods: {
     redirectToLoginIfNoToken() {
+      const reloaded = localStorage.getItem('reloaded');
+   if (reloaded !== 'true') {
+       localStorage.setItem('reloaded', 'true');
+       location.reload();
+   }
       const token = localStorage.getItem("token")
       console.log("token:", token)
       if (token == null) {

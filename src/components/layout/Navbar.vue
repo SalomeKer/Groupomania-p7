@@ -14,8 +14,10 @@ export default {
     },
     methods: {
       logOut(){
-        localStorage.removeItem("token")
         this.$router.push("/login")
+        localStorage.clear(), sessionStorage.clear()
+        this.$router.push("/login")
+
       }
     }
 }
@@ -37,7 +39,7 @@ export default {
         <router-link v-if="!this.isLoggedIn" class="text-decoration-none" to="/login"><a class="nav-link">Connexion</a></router-link>
       </li>
       <li class="nav-item ps-2">
-        <router-link @click="logOut" v-if="this.isLoggedIn" class="text-decoration-none" to="#"><a class="nav-link">déconnexion</a></router-link>
+        <a @click="logOut" v-if="this.isLoggedIn" class="nav-link text-decoration-none" to="#">déconnexion</a>
       </li>
     </ul>
   </div>
