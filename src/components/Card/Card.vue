@@ -11,7 +11,7 @@ export default{
         Comment,
         Avatar,
     },
-    props: ["email", "content", "url", "comments", "id", "currentUser"],
+    props: ["email", "content", "url", "comments", "id", "currentUser","likeCount","liked", "role"],
     data(){
         return{
             currentcomment: null
@@ -64,7 +64,81 @@ export default{
           this.$router.go()
         })
         .catch((err) => console.log("err:", err))
-    },
+    },deletePostAdmin(e) {
+      console.log("id of the post to delete:", this.$props.id)
+      const { url, headers } = getUrlAndHeaders()
+      fetch(url + "posts/" + this.$props.id, {
+        headers: { ...headers, "Content-Type": "application/json" },
+        method: "DELETE"
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            return res.json()
+          } else {
+            throw new Error("Failed to delete post")
+          }
+        })
+        .then((res) => {
+          console.log("res:", res)
+          this.$router.go()
+        })
+        .catch((err) => console.log("err:", err))
+    },likePost(e){
+      if(this.$props.liked === true){
+      alert("unliked this post")
+      const email = this.$props.currentUser
+      const userId = localStorage.getItem("userId")
+      const postId = this.$props.id
+      const { url, headers } = getUrlAndHeaders()
+      const formData = new FormData()
+      formData.append("userId", userId )
+      formData.append("postId", postId)
+      const options = {
+        method: "DELETE",
+        headers,
+        body: formData
+        } 
+      fetch(url + "posts/like/" + this.$props.id, options)
+       .then((res) => {
+          if (res.status === 200) {
+            return res.json()
+          } else {
+            throw new Error("Failed to unlike post")
+          }
+        })
+        .then((res) => {
+          console.log("res:", res)
+          this.$router.go()
+        })
+        .catch((err) => console.log("err:", err))
+      }else{
+      const email = this.$props.currentUser
+      const userId = localStorage.getItem("userId")
+      const { url, headers } = getUrlAndHeaders()
+      const formData = new FormData()
+      formData.append("userId", userId )
+      formData.append("email", email)
+      const options = {
+        headers,
+        method: "POST",
+        body: formData
+      }
+      fetch(url + "posts/like/" + this.$props.id, options)
+        .then((res) => {
+          if (res.status === 200) {
+            return res.json()
+          } else {
+            throw new Error("Failed to like post")
+          }
+        })
+        .then((res) => {
+          console.log("res:", res)
+          this.$router.go()
+        })
+        .catch((err) => console.log("err:", err))
+        }
+    }
+
     }
 }
 </script>
@@ -77,13 +151,15 @@ export default{
          style="width: 50px; height: 50px;" 
          alt="Avatar" />
          <span class="emailAvatar">{{ email }}</span><div class="iconDiv d-flex align-items-center ms-auto">
-          <div class="like"><p><i @click="likeClick" class="fas fa-heart"></i> <span class="number"></span></p></div>
+          <div class="like"><p><i @click="likePost" :class="{'fas fa-heart':liked,'far fa-heart':!liked}"></i> <span class="number">{{likeCount}}</span></p></div>
          <router-link
           id="fa-pen"
           :to="{
           name: 'modify',
-          params: { id: id, email: email, url: url },}"><i v-if="currentUser === email" class="fa-solid fa-pen"></i></router-link>
-          <i v-if="currentUser === email" class="fa-solid fa-x" @click="deletePost"></i></div></div>
+          params: { id: id, email: email, url: url , content:content},}"><i v-if="currentUser === email" class="fa-solid fa-pen"></i></router-link>
+          <i v-if="currentUser === email" class="fa-solid fa-x" @click="deletePost"></i>
+          <i v-if="role === 'admin'" class="fa-solid fa-trash" @click="deletePostAdmin"></i>
+          </div></div>
          
     </div>
     

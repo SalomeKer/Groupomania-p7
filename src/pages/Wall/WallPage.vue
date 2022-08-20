@@ -70,7 +70,10 @@ export default {
         			 :content="post.content"
         			 :url="post.imageUrl"
         			 :comments="post.comments"
-               :id="post.id">
+               :id="post.id"
+               :likeCount="post.likes.length"
+               :liked="post.likes.some(like => like.email === currentUser)"
+               >
 					</card>
 					</div>
 				</div>

@@ -81,11 +81,18 @@ function loginUser(email, password, router, store) {
       const token = res.token
       localStorage.clear()
       localStorage.setItem("token", token)
+      localStorage.setItem("userId", res.userId)
+      localStorage.setItem("role", res.role)
       let tokenInCache
       while (tokenInCache == null) {
         tokenInCache = localStorage.getItem("token")
       }
-      this.$router.push("/home")
+      if(res.role === "admin"){
+        alert("Logged in as an admin")
+        this.$router.push("/admin")
+      }else{
+        this.$router.push("/home")
+      }
     })
     .catch((err) => {
       console.error(err)
